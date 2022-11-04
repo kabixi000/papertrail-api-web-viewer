@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Papertrail API Web Viewer</title>
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQAAAAA3iMLMAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAC1JREFUeNpjAII8BoYQIJrFkOrB4HqLwTWIAQJYGBgCrjCEXmFIlWFwuQMRAwC+UQgGr/VKjwAAAABJRU5ErkJggg==">
+  </head>
+  <body>
+    <h1>Papertrail API Web Viewer</h1>
+    <div>
+      <p>token</p>
+      <input id="token" type="text">
+    </div>
+    <div>
+      <h2>Get System Info</h2>
+      <textarea id="sysInfoResult"></textarea>
+      <input id="getSysInfoBtn" type="button" value="get">
+      <p>names</p>
+      <textarea id="sysInfoResultName"></textarea>
+    </div>
+    <div>
+      <h2>Search Log</h2>
+      <p>System ID or Name</p>
+      <input id="systemId" type="text">
+      <p>query</p>
+      <input id="query" type="text">
+      <p>result</p>
+      <textarea id="searchResult"></textarea>
+      <input id="searchBtn" type="button" value="search">
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
