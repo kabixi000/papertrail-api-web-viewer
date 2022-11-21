@@ -2,6 +2,8 @@ const tokenElm = document.getElementById('token')
 const sysIdElm = document.getElementById('systemId')
 const queryElm = document.getElementById('query')
 const eventsSpanElm = document.getElementById('events')
+const minTimeElm = document.getElementById('minTime')
+const maxTimeElm = document.getElementById('maxTime')
 
 const systemInfoResultElm = document.getElementById('sysInfoResult')
 const systemInfoResultNameElm = document.getElementById('sysInfoResultName')
@@ -29,9 +31,12 @@ const downloadSysInfo = async () => {
   return systemInfo
 }
 
-const downloadSearchResult = async (query,systemId=null) => {
+const downloadSearchResult = async (params) => {
+  const { query, systemId, minTime, maxTime, } = params
   const searchURL = new URL(searchPath)
   if(systemId!=null&&systemId!==''){searchURL.searchParams.set('system_id',systemId)}
+  if(minTime!=null&&minTime!==''){searchURL.searchParams.set('min_time',minTime)}
+  if(maxTime!=null&&maxTime!==''){searchURL.searchParams.set('max_time',maxTime)}
   searchURL.searchParams.set('q',query)
   searchURL.searchParams.set('limit',10000)
   const res = await fetch(searchURL,fetchOption(tokenElm.value))
@@ -47,9 +52,14 @@ getSysInfoBtnElm.addEventListener('click',async (e)=>{
 })
 
 searchBtnElm.addEventListener('click',async (e)=>{
-  const query = queryElm.value
-  const sysId = sysIdElm.value
-  const searchResult = await downloadSearchResult(query,sysId)
+  const params = {
+    query: queryElm.value,
+    systemId: sysIdElm.value,
+    minTime: minTimeElm.value,
+    maxTime: maxTimeElm.value,
+  }
+  searchResultElm.value = 'Loading ...'
+  const searchResult = await downloadSearchResult(params)
   searchResultElm.value = searchResult.events.length > 1000? 'Please see DevTool: Too many Events.' : JSON.stringify(searchResult)
   eventsSpanElm.innerText = searchResult.events.length
   console.log('Search Result\n',searchResult)
